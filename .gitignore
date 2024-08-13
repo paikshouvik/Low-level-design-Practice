@@ -1,0 +1,49 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+*.class
+*/*.class
+# Ignore IntelliJ IDEA project files
+.idea/*
+*.iml
+*.iws
+*.ipr
+
+# Ignore compiled class files
+*.class
+
+# Ignore Maven build directory
+target/
+
+# Ignore Gradle build directory
+build/
+
+# Ignore Java module build directory
+*.class
+*.log
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore environment-specific files
+*.env
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo
+
+# Ignore IDE-specific files
+*.project
+*.classpath
+
+# Ignore JUnit test result files
+*.xml
+
+# Ignore other unnecessary files
+*.jar
+*.war
+*.ear
+*.log
+*.sql

@@ -1,15 +1,17 @@
 package tiktactoe;
 
+import SnakeAndLadder.GameStatus;
+
 public class GameResults {
-    private GameStatus status;
+    private SnakeAndLadder.GameStatus status;
     private String winer;
 
-    public GameResults(GameStatus status, String winer) {
+    public GameResults(SnakeAndLadder.GameStatus status, String winer) {
         this.status = status;
         this.winer = winer;
     }
 
-    public GameStatus getStatus() {
+    public SnakeAndLadder.GameStatus getStatus() {
         return status;
     }
 

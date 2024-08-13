@@ -1,82 +1,61 @@
 package tiktactoe;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class AppEngine {
     private Board board;
-    private String player1;
-    private String player2;
-    private boolean isPlayerOneMove = true;
-    private int maxSize = 9;
-    public AppEngine() {
-        this.board = new TicTacToeBoard(3, 3);
+    private List<String> players;
+    private int currentPlayer;
+    private int noOfPlayers;
+
+    public AppEngine(Board board, int noOfPlayers) {
+        this.board = board;
+        this.currentPlayer = 0;
+        this.noOfPlayers = noOfPlayers;
     }
 
-    public void startGame() {
-        try (Scanner sc = new Scanner(System.in)) {
-            setupPlayers(sc);
-            printBoard();
-            playGame(sc);
+    protected void setupPlayers(Scanner sc) {
+        this.players = new ArrayList<>();
+        for (int i = 0; i < noOfPlayers; i++) {
+            System.out.print(String.format("Enter player %s name: ",(i+1)));
+            players.add(sc.nextLine());
         }
     }
 
-    private void setupPlayers(Scanner sc) {
-        System.out.print("Enter player 1 name: ");
-        player1 = sc.nextLine();
-        System.out.print("Enter player 2 name: ");
-        player2 = sc.nextLine();
-    }
-
-    private void printBoard() {
+    protected void printBoard() {
         board.printBoard();
     }
 
-    private void playGame(Scanner sc) {
-        int count = 0;
-        while (true) {
-            System.out.println("Enter row (1-3):");
-            int row = sc.nextInt() - 1;
-            System.out.println("Enter col (1-3):");
-            int col = sc.nextInt() - 1;
-            sc.nextLine(); // Consume newline
 
-            if (processMove(row, col)) {
-                printBoard();
-                GameResults result = board.getGameResult();
-                if (result.getStatus() == GameStatus.OVER) {
-                    announceResult(result);
-                    break;
-                }
-                if (board.isBoardFull()) {
-                    System.out.println("Game Draw!");
-                    break;
-                }
-                isPlayerOneMove = !isPlayerOneMove;
-            } else {
-                System.out.println("Invalid move! Try again.");
-            }
-            if(count>=maxSize){
-                System.out.println("Match Draw !!");
-                break;
-            }
-            count++;
-        }
-    }
-
-    private boolean processMove(int row, int col) {
-        String currentPlayer = isPlayerOneMove ? player1 : player2;
-        try {
-            board.setCellValue(row, col, currentPlayer);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private void announceResult(GameResults result) {
+    protected void announceResult(GameResults result) {
         if (result.getStatus() == GameStatus.OVER) {
             String winner = result.getWiner();
-            System.out.println("Congratulations! Player " + (winner.equals(player1) ? player1 : player2) + " won!");
-        }
+            System.out.println("Congratulations! Player " + winner + " won!");
+        };
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public List<String> getPlayers() {
+        return players;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void moveTONextPlayer() {
+        currentPlayer++;
+        currentPlayer = currentPlayer%players.size();
+    }
+
+    public int getNoOfPlayers() {
+        return noOfPlayers;
     }
 }

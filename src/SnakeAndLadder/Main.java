@@ -1,7 +1,7 @@
-package tiktactoe;
+package SnakeAndLadder;
 
 public class Main {
     public static void main(String[] args) {
-        new TicTacToeAppEngine().startGame();
+        new SnakeLadderAppEngine(5).startGame();
     }
 }

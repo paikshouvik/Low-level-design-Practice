@@ -15,6 +15,7 @@ public class SnakeLadderAppEngine extends AppEngine{
 
     protected void setupPlayers(Scanner sc) {
         super.setupPlayers(sc);
+        playerPositions = new ArrayList<>();
         for (int i = 0; i < getNoOfPlayers(); i++) {
             playerPositions.add(1);
         }
@@ -31,17 +32,21 @@ public class SnakeLadderAppEngine extends AppEngine{
         while (true) {
             int diceOutcome = rollDice(1,6);
             if (!getCurrentplayerReachFinalPosition()){
+
+                System.out.println("player "+getCurrentPlayer()+ " throws dice and got "+diceOutcome);
                 int newPositionOnBoard = getCurrentplayerPosition() + diceOutcome;
                 newPositionOnBoard =  calculateNewPositionBasedOnSnakeAndLadder(newPositionOnBoard);
-                setCurrentplayerPosition(newPositionOnBoard);
+                if(newPositionOnBoard<=n*n){
+                    setCurrentplayerPosition(newPositionOnBoard);
+                }
                 if(newPositionOnBoard==n*n){
-                    playerFinishAtMap.put(getCurrentPlayer(),(n-NoOfPlayerYetToReachFinalDestination+1));
+                    playerFinishAtMap.put(getCurrentPlayer(),(getNoOfPlayers()-NoOfPlayerYetToReachFinalDestination+1));
                     NoOfPlayerYetToReachFinalDestination--;
                 }
             }
             moveTONextPlayer();
             if(NoOfPlayerYetToReachFinalDestination==0){
-                playerFinishAtMap.forEach((player,position)->{System.out.println("The player "+player+" finished at position "+position);});
+                playerFinishAtMap.forEach((playerId,position)->{System.out.println("The player "+getPlayers().get(playerId)+" finished at position "+position);});
                 break;
             }
         }

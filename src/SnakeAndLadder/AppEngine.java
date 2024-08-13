@@ -1,10 +1,8 @@
-package tiktactoe;
+package SnakeAndLadder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class AppEngine {
     private Board board;
@@ -24,18 +22,6 @@ public class AppEngine {
             System.out.print(String.format("Enter player %s name: ",(i+1)));
             players.add(sc.nextLine());
         }
-    }
-
-    protected void printBoard() {
-        board.printBoard();
-    }
-
-
-    protected void announceResult(GameResults result) {
-        if (result.getStatus() == GameStatus.OVER) {
-            String winner = result.getWiner();
-            System.out.println("Congratulations! Player " + winner + " won!");
-        };
     }
 
     public Board getBoard() {

@@ -1,17 +1,12 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-*.class
-*/*.class
 # Ignore IntelliJ IDEA project files
-.idea/*
+.idea/
 *.iml
 *.iws
 *.ipr
 
 # Ignore compiled class files
 *.class
-
+*/*.class
 # Ignore Maven build directory
 target/
 

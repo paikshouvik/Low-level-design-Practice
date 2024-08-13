@@ -1,4 +1,4 @@
-package tiktactoe;
+package SnakeAndLadder;
 
 public class Cell {
 

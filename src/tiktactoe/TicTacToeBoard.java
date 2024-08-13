@@ -1,56 +1,65 @@
 package tiktactoe;
 
-public class TicTacToeBoard extends Board{
+public class TicTacToeBoard extends Board {
+	
+    public TicTacToeBoard(int maxLen, int maxWidth) {
+        super(maxLen, maxWidth);
+    }
 
-	public TicTacToeBoard(int maxLen, int maxWidth) {
-		super(maxLen, maxWidth);
-	}
+    @Override
+    public GameResults getGameResult() {
+        boolean checkRows = checkRows();
+        if (checkRows() || checkColumns() || checkDiagonals()) {
+            return new GameResults(GameStatus.OVER, getWinerPlayer());
+        }
+        return new GameResults(GameStatus.NOT_OVER, "-");
+    }
 
-	@Override
-	GameResults getGameResult() {
-		for (int i = 0; i < cells.length; i++) {
-			boolean isGameOver = true;
-			for (int j = 0; j < cells[i].length; j++) {
-				if(cells[i][j]==null || cells[i][0]==null || !(cells[i][j].value).equalsIgnoreCase(cells[i][0].value)) {
-					isGameOver = false;
-					break;
-				}
-			}
-			if(isGameOver) {
-				return new GameResults(GameStatus.OVER,cells[i][0].getValue());
-			}
-		}
-		
-		for (int j = 0; j < cells[0].length; j++) {
-			boolean isGameOver = true;
-			for (int i = 0; i < cells.length; i++) {
-				if(cells[i][j]==null || cells[0][j]==null || !(cells[i][j].value).equalsIgnoreCase(cells[0][j].value)) {
-					isGameOver = false;
-					break;
-				}
-			}
-			if(isGameOver) {
-				return new GameResults(GameStatus.OVER,cells[0][j].getValue());
-			}
-		}
-		boolean isGameOverDiagonal = true;
-		boolean isGameOverRevDiagonal = true;
-		
-		for (int i = 0; i < cells.length; i++) {
-			if(cells[i][i]==null ||!(cells[i][i].value).equalsIgnoreCase(cells[0][0].value)) {
-				isGameOverDiagonal = false;
-			}
-			if(cells[i][maxWidth-i-1]==null || cells[0][maxWidth-1]==null || !(cells[i][maxWidth-i-1].value).equalsIgnoreCase(cells[0][maxWidth-1].value)) {
-				isGameOverRevDiagonal = false;
-			}
-		}
-		if(isGameOverDiagonal) {
-			return new GameResults(GameStatus.OVER,cells[0][0].getValue());
-		}
-		if(isGameOverRevDiagonal) {
-			return new GameResults(GameStatus.OVER,cells[0][maxWidth-1].getValue());
-		}
-		return new GameResults(GameStatus.NOT_OVER,"-");
-	}
+    private boolean checkRows() {
+        for (int i = 0; i < maxLen; i++) {
+            if (checkLine(cells[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private boolean checkColumns() {
+        for (int j = 0; j < maxWidth; j++) {
+            Cell[] column = new Cell[maxLen];
+            for (int i = 0; i < maxLen; i++) {
+                column[i] = cells[i][j];
+            }
+            if (checkLine(column)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkDiagonals() {
+        Cell[] diagonal1 = new Cell[maxLen];
+        Cell[] diagonal2 = new Cell[maxLen];
+        for (int i = 0; i < maxLen; i++) {
+            diagonal1[i] = cells[i][i];
+            diagonal2[i] = cells[i][maxWidth - 1 - i];
+        }
+        return checkLine(diagonal1) || checkLine(diagonal2);
+    }
+
+    private boolean checkLine(Cell[] line) {
+        if (line[0] == null) return false;
+        String firstValue = line[0].getValue();
+        for (Cell cell : line) {
+            if (cell == null || !cell.getValue().equals(firstValue)) {
+                return false;
+            }
+        }
+        winer = firstValue;
+        return true;
+    }
+
+    private String getWinerPlayer() {
+        return this.winer;
+    }
 }

@@ -1,29 +1,27 @@
 package tiktactoe;
 
 public class GameResults {
-	GameStatus status;
-	String winer;
+    private GameStatus status;
+    private String winer;
 
-	public GameStatus getStatus() {
-		return status;
-	}
+    public GameResults(GameStatus status, String winer) {
+        this.status = status;
+        this.winer = winer;
+    }
 
-	public void setStatus(GameStatus status) {
-		this.status = status;
-	}
+    public GameStatus getStatus() {
+        return status;
+    }
 
-	public String getWiner() {
-		return winer;
-	}
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
 
-	public void setWiner(String winer) {
-		this.winer = winer;
-	}
+    public String getWiner() {
+        return winer;
+    }
 
-	public GameResults(GameStatus status, String winer) {
-		super();
-		this.status = status;
-		this.winer = winer;
-	}
-
+    public void setWiner(String winer) {
+        this.winer = winer;
+    }
 }

@@ -3,53 +3,80 @@ package tiktactoe;
 import java.util.Scanner;
 
 public class AppEngine {
-	/*
- 	https://workat.tech/machine-coding/practice/design-tic-tac-toe-smyfi9x064ry 
-	*/
-	
-	Board board = new TicTacToeBoard(3, 3);
-	
-	public void startGame() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Enter player 1 name: ");
-		String player1 = sc.nextLine();
-		System.out.println();
-		System.out.print("Enter player 2 name: ");
-		System.out.println();
-		String player2 = sc.nextLine();
-		String gameStatus = getGameStatus();
-		boolean isPlayerOneMove = true;
-		while (gameStatus.equalsIgnoreCase(GameStatus.NOT_OVER.toString())) {
-			System.out.println("Enter row:");
-			int row = sc.nextInt();
-			System.out.println("Enter col:");
-			int col = sc.nextInt();
-			try {
-				makeAMove(row, col, isPlayerOneMove?player1:player2);
-				isPlayerOneMove = !isPlayerOneMove;				
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.err.print("Invalid move!! try again");
-			}
-			gameStatus = getGameStatus();
-		}
-		GameResults gameResult =  board.getGameResult();
-		if(gameResult.getStatus().toString().equalsIgnoreCase(GameStatus.OVER.toString())) {
-			System.out.println("Yeehh!! Player "+gameResult.getWiner()+" won !!!");
-		}else {
-			System.out.println("Game Draw!");
-		}
-	}
-	
-	private String getGameStatus() {
-		return board.getGameResult().getStatus().toString();
-	}
-	
-	private void makeAMove(int row, int col, String playerId) throws Exception {
-		board.setCellValue(row, col, playerId);
-	}
-	
-	
-	
-	
+    private Board board;
+    private String player1;
+    private String player2;
+    private boolean isPlayerOneMove = true;
+    private int maxSize = 9;
+    public AppEngine() {
+        this.board = new TicTacToeBoard(3, 3);
+    }
+
+    public void startGame() {
+        try (Scanner sc = new Scanner(System.in)) {
+            setupPlayers(sc);
+            printBoard();
+            playGame(sc);
+        }
+    }
+
+    private void setupPlayers(Scanner sc) {
+        System.out.print("Enter player 1 name: ");
+        player1 = sc.nextLine();
+        System.out.print("Enter player 2 name: ");
+        player2 = sc.nextLine();
+    }
+
+    private void printBoard() {
+        board.printBoard();
+    }
+
+    private void playGame(Scanner sc) {
+        int count = 0;
+        while (true) {
+            System.out.println("Enter row (1-3):");
+            int row = sc.nextInt() - 1;
+            System.out.println("Enter col (1-3):");
+            int col = sc.nextInt() - 1;
+            sc.nextLine(); // Consume newline
+
+            if (processMove(row, col)) {
+                printBoard();
+                GameResults result = board.getGameResult();
+                if (result.getStatus() == GameStatus.OVER) {
+                    announceResult(result);
+                    break;
+                }
+                if (board.isBoardFull()) {
+                    System.out.println("Game Draw!");
+                    break;
+                }
+                isPlayerOneMove = !isPlayerOneMove;
+            } else {
+                System.out.println("Invalid move! Try again.");
+            }
+            if(count>=maxSize){
+                System.out.println("Match Draw !!");
+                break;
+            }
+            count++;
+        }
+    }
+
+    private boolean processMove(int row, int col) {
+        String currentPlayer = isPlayerOneMove ? player1 : player2;
+        try {
+            board.setCellValue(row, col, currentPlayer);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void announceResult(GameResults result) {
+        if (result.getStatus() == GameStatus.OVER) {
+            String winner = result.getWiner();
+            System.out.println("Congratulations! Player " + (winner.equals(player1) ? player1 : player2) + " won!");
+        }
+    }
 }

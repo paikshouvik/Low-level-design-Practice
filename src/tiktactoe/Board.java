@@ -17,9 +17,11 @@ public abstract class Board {
 		if(row<1 || row>maxLen || col<1 || col>maxWidth) {
 			throw new NoSuchFieldError();
 		}
-		if(cells[row-1][col-1]!=null) {
+		if(cells[row-1][col-1]==null) {
 			cells[row-1][col-1] = new Cell(value);
+			return;
 		}
+		System.out.println("row: "+row+"  ::  col: "+col+"  :: value: "+value);
 		throw new Exception();
 	}
 	

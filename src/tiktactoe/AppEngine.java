@@ -20,13 +20,15 @@ public class AppEngine {
 		String gameStatus = getGameStatus();
 		boolean isPlayerOneMove = true;
 		while (gameStatus.equalsIgnoreCase(GameStatus.NOT_OVER.toString())) {
-			System.out.print("Enter row col");
+			System.out.println("Enter row:");
 			int row = sc.nextInt();
+			System.out.println("Enter col:");
 			int col = sc.nextInt();
 			try {
 				makeAMove(row, col, isPlayerOneMove?player1:player2);
 				isPlayerOneMove = !isPlayerOneMove;				
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.err.print("Invalid move!! try again");
 			}
 			gameStatus = getGameStatus();

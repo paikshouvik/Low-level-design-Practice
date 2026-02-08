@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author shouv
- *
- */
-module MachineCodingRound {
-}

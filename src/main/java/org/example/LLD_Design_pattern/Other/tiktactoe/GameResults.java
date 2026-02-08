@@ -1,4 +1,4 @@
-package tiktactoe;
+package org.example.LLD_Design_pattern.Other.tiktactoe;
 
 public class GameResults {
     private GameStatus status;

@@ -1,4 +1,4 @@
-package SnakeAndLadder;
+package org.example.LLD_Design_pattern.Other.SnakeAndLadder;
 
 public abstract class Board {
     protected int maxLen;

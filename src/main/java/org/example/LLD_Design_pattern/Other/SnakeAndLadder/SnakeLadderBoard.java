@@ -1,6 +1,5 @@
-package SnakeAndLadder;
+package org.example.LLD_Design_pattern.Other.SnakeAndLadder;
 
-import java.util.List;
 import java.util.Map;
 
 public class SnakeLadderBoard extends Board{

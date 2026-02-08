@@ -1,4 +1,4 @@
-package splitwise;
+package org.example.LLD_Design_pattern.Other.splitwise;
 
 public class App {
 /*

@@ -1,4 +1,4 @@
-package SnakeAndLadder;
+package org.example.LLD_Design_pattern.Other.tiktactoe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,18 @@ public class AppEngine {
             System.out.print(String.format("Enter player %s name: ",(i+1)));
             players.add(sc.nextLine());
         }
+    }
+
+    protected void printBoard() {
+        board.printBoard();
+    }
+
+
+    protected void announceResult(GameResults result) {
+        if (result.getStatus() == GameStatus.OVER) {
+            String winner = result.getWiner();
+            System.out.println("Congratulations! Player " + winner + " won!");
+        };
     }
 
     public Board getBoard() {

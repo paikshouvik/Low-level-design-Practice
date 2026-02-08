@@ -1,4 +1,4 @@
-package ParkingLot;
+package org.example.LLD_Design_pattern.Other.ParkingLot;
 
 public class App {
 /*
